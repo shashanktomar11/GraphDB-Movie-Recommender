@@ -1,0 +1,22 @@
+MATCH (c1:Consumer {user_id:2})-[r:RATED]->(m:Movie)
+WITH c1, avg(r.rating) AS c1_mean
+
+MATCH (c1)-[r1:RATED]->(m:Movie)<-[r2:RATED]-(c2)
+WITH c1, c1_mean, c2, COLLECT({r1: r1, r2: r2}) AS ratings WHERE size(ratings) > 10
+
+MATCH (c2)-[r:RATED]->(m:Movie)
+WITH c1, c1_mean, c2, avg(r.rating) AS c2_mean, ratings
+
+UNWIND ratings AS r
+
+WITH sum( (r.r1.rating-c1_mean) * (r.r2.rating-c2_mean) ) AS nom,
+     sqrt( sum( (r.r1.rating - c1_mean)^2) * sum( (r.r2.rating - c2_mean) ^2)) AS denom,
+     c1, c2 WHERE denom <> 0
+
+WITH c1, c2, nom/denom AS pearson
+ORDER BY pearson DESC LIMIT 10
+
+MATCH (c2)-[r:RATED]->(m:Movie) WHERE NOT EXISTS( (c1)-[:RATED]->(m) )
+
+RETURN m.title, SUM( pearson * r.rating) AS score
+ORDER BY score DESC LIMIT 100
