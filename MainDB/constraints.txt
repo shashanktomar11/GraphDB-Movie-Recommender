@@ -1,0 +1,7 @@
+CREATE CONSTRAINT ON (movie:Movie) ASSERT movie.movie_id IS UNIQUE;
+CREATE CONSTRAINT ON (consumer:Consumer) ASSERT consumer.user_id IS UNIQUE;
+CREATE CONSTRAINT ON (consumer:Consumer) ASSERT consumer.username IS UNIQUE;
+CREATE CONSTRAINT ON (consumer:Consumer) ASSERT consumer.email_id IS UNIQUE;
+CREATE CONSTRAINT ON (fp:Filmperson) ASSERT fp.f_id IS UNIQUE;
+CREATE CONSTRAINT ON (admin:Admin) ASSERT admin.admin_id IS UNIQUE;
+CREATE CONSTRAINT ON (analyst:Analyst) ASSERT analyst.analyst_id IS UNIQUE;

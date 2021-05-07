@@ -1,0 +1,4 @@
+MATCH (c:Consumer) Return count(c);
+MATCH (m:Movie) Return count(m);
+MATCH (f:Filmperson) Return count(f);
+MATCH (c1:Consumer)-[r:RATED]->(m:Movie) RETURN count(r);

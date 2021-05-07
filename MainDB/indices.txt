@@ -1,0 +1,12 @@
+CALL db.index.fulltext.createNodeIndex("titlesAndDescriptions", ["Movie"], ["title", "description"], {eventually_consistent: "true"});
+CREATE INDEX FOR (movie:Movie) ON (movie.genre);
+CREATE INDEX FOR (movie:Movie) ON (movie.language);
+CREATE INDEX FOR (movie:Movie) ON (movie.year);
+CREATE INDEX FOR (movie:Movie) ON (movie.duration);
+CREATE INDEX FOR (movie:Movie) ON (movie.date_published);
+CREATE INDEX FOR (movie:Movie) ON (movie.production_company);
+CREATE INDEX FOR (movie:Movie) ON (movie.country);
+CREATE INDEX FOR (movie:Movie) ON (movie.budget);
+CREATE INDEX FOR (movie:Movie) ON (movie.usa_gross_income);
+CREATE INDEX FOR (movie:Movie) ON (movie.worldwide_gross_income);
+CALL db.index.fulltext.createNodeIndex("fpName", ["Filmperson"], ["name"], {eventually_consistent: "true"});
