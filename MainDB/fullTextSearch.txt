@@ -1,0 +1,2 @@
+CALL db.index.fulltext.queryNodes("titlesAndDescriptions", "Car") YIELD node, score
+RETURN node.title, node.review, score
