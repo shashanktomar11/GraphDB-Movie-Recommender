@@ -1,0 +1,292 @@
+<%- include('partials/header') %>
+<div class="container mt-5">
+  <div class="row">
+    <div class="col text-center">
+      <a class="btn btn-danger" href="/logout">Logout</a>
+    </div>
+    <div class="col d-flex">
+      <div class="mr-auto">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#normalSearchModal">Search</button>
+
+        <!-- <input type="text" name="Search" id="">
+        <button class="btn-primary" onclick="search(this)">Search</button> -->
+      </div>
+      <div class="ml-auto">
+        <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#advanceSearchModal">Advance Search</button> -->
+      </div>
+    </div>
+  </div>
+  <div class="mt-5" id="Result">
+
+  </div>
+</div>
+
+<!-- <div class="modal fade" id="advanceSearchModal" tabindex="-1" role="dialog" aria-labelledby="advanceSearchModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="advanceSearchModalLabel">Advance Search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="advance-search-form">
+          <div class="form-group">
+            <label for="Name">Name</label>
+            <input type="text" name="name" class="form-control" id="Name">
+          </div>
+          <div class="form-group">
+            <label for="Director">Director</label>
+            <input type="text" name="director" class="form-control" id="Director">
+          </div>
+          <div class="form-group">
+            <label for="Genre">Genre</label>
+            <input type="text" name="genre" class="form-control" id="Genre">
+          </div>
+          <div class="form-group">
+            <label for="Year">Year</label>
+            <input type="text" name="year" class="form-control" id="Year">
+          </div>
+          <div class="d-flex">
+            <button type="button" class="btn btn-primary mx-auto"
+              onclick="advanceSearch(document.getElementById('advance-search-form'))">Search</button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+<div class="modal fade" id="normalSearchModal" tabindex="-1" role="dialog" aria-labelledby="normalSearchModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="normalSearchModalLabel">Search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="normal-search-form">
+          <div class="form-group">
+            <label for="Name">Title</label>
+            <input type="text" name="title" class="form-control" id="Name">
+          </div>
+          <div class="form-group">
+            <label for="Year">Year</label>
+            <input type="text" name="year" class="form-control" id="Year">
+          </div>
+          <div class="form-group">
+            <label for="Genre">Genre</label>
+            <input type="text" name="genre" class="form-control" id="Genre">
+          </div>
+          <!-- <div class="form-group">
+            <label for="duration">Duration</label>
+            <input type="text" name="duration" class="form-control" id="duration">
+          </div> -->
+          <div class="form-group">
+            <label for="language">Language</label>
+            <input type="text" name="language" class="form-control" id="language">
+          </div>
+          
+          <input type="hidden" name="user_id" value="<%= user_id %>">
+          
+          <div class="d-flex">
+            <button type="button" class="btn btn-primary mx-auto"
+              onclick="normalSearch(document.getElementById('normal-search-form'))">Search</button>
+          </div>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+
+<div class="modal fade" id="feedbackModal" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="feedbackModalLabel">Feedback</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <!-- <p class="page-header">1 is bad, 10 is good (i.e., "How happy are you feeling today?")</p> -->
+
+        <div class="d-flex m-5">
+          <div class="chart-scale w-100">
+            <label for="rating1" class="btn btn-scale btn-scale-desc-1"><input type="radio" name="rating" id="rating1"
+                value="1">1</input></label>
+            <label for="rating2" class="btn btn-scale btn-scale-desc-2"><input type="radio" name="rating" id="rating2"
+                value="2">2</input></label>
+            <label for="rating3" class="btn btn-scale btn-scale-desc-3"><input type="radio" name="rating" id="rating3"
+                value="3">3</input></label>
+            <label for="rating4" class="btn btn-scale btn-scale-desc-4"><input type="radio" name="rating" id="rating4"
+                value="4">4</input></label>
+            <label for="rating5" class="btn btn-scale btn-scale-desc-5"><input type="radio" name="rating" id="rating5"
+                value="5">5</input></label>
+            <label for="rating6" class="btn btn-scale btn-scale-desc-6"><input type="radio" name="rating" id="rating6"
+                value="6">6</input></label>
+            <label for="rating7" class="btn btn-scale btn-scale-desc-7"><input type="radio" name="rating" id="rating7"
+                value="7">7</input></label>
+            <label for="rating8" class="btn btn-scale btn-scale-desc-8"><input type="radio" name="rating" id="rating8"
+                value="8">8</input></label>
+            <label for="rating9" class="btn btn-scale btn-scale-desc-9"><input type="radio" name="rating" id="rating9"
+                value="9">9</input></label>
+            <label for="rating10" class="btn btn-scale btn-scale-desc-10"><input type="radio" name="rating"
+                id="rating10" value="10">10</input></label>
+            <!-- <input type="radio" name="rating" value="2" class="btn btn-scale btn-scale-desc-2">2</input>
+        <input type="radio" name="rating" value="3" class="btn btn-scale btn-scale-desc-3">3</input>
+        <input type="radio" name="rating" value="4" class="btn btn-scale btn-scale-desc-4">4</input>
+        <input type="radio" name="rating" value="5" class="btn btn-scale btn-scale-desc-5">5</input>
+        <input type="radio" name="rating" value="6" class="btn btn-scale btn-scale-desc-6">6</input>
+        <input type="radio" name="rating" value="7" class="btn btn-scale btn-scale-desc-7">7</input>
+        <input type="radio" name="rating" value="8" class="btn btn-scale btn-scale-desc-8">8</input>
+        <input type="radio" name="rating" value="9" class="btn btn-scale btn-scale-desc-9">9</input>
+        <input type="radio" name="rating" value="10" class="btn btn-scale btn-scale-desc-10">10</input> -->
+
+          </div>
+          <!-- <button type="button" class="btn btn-success btn-block mr-3" onclick="sendLike(this)">Like</button>
+            <button type="button" class="btn btn-danger btn-block ml-3 mt-0" onclick="sendDislike(this)">Dislike</button> -->
+        </div>
+
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+
+<script>
+  // let dummyData = [{id: 1,movie: 'abc',genre: 'b',director: 'c',rating: 'd', desc: 'e', year: 2010   }, {id: 2,movie: 'zyx',genre: 'b',director: 'c',rating: 'd', desc: 'e', year: 2010   }, {id: 3,movie: 'abcd',genre: 'b',director: 'c',rating: 'd', desc: 'e', year: 2010   }];
+
+  // search = (elem) => {
+  //   let searchValue = elem.previousElementSibling.value;
+  //   console.log(searchValue);
+  //   let output = data.filter(e => e.movie.includes(searchValue));
+  //   let html = tableStart;
+  //   output.forEach((e, i) => {
+  //     html += createRow(e, i + 1);
+  //   });
+  //   if (!output.length) html += '<td colspan="7" class="text-center">No record found!!</td>';
+
+  //   html += tableEnd;
+  //   $('#Result').html(html);
+  // }
+  // advanceSearch = (form) => {
+  //   let searchedData = $(form).serializeArray();
+  //   console.log(searchedData);
+  //   $.ajax({
+  //     url: '/advance-search',
+  //     type: 'POST',
+  //     data: searchedData,
+  //     success: (r) => {
+  //       console.log(r);
+  //       let html = tableStart;
+  //       r.data.forEach((e, i) => {
+  //         html += createRow(e, i + 1);
+  //       });
+  //       if (!r.data.length) html += '<td colspan="7" class="text-center">No record found!!</td>';
+  //       html += tableEnd;
+  //       $('#Result').html(html);
+  //       $('#advanceSearchModal').modal('hide');
+  //     }
+  //   });
+  //   let output = data.filter(e => e.movie.includes(searchedData[0].value) && e.director.includes(searchedData[1]
+  //     .value) && e.genre.includes(searchedData[2].value) && e.year == searchedData[3].value);
+
+  // }
+  
+  normalSearch = (form) => {
+    let searchedData = $(form).serializeArray();
+    console.log(searchedData);
+    $.ajax({
+      url: '/normal-search',
+      type: 'POST',
+      data: searchedData,
+      success: (r) => {
+        console.log(r);
+        let html = tableStart;
+        r.data.forEach((e, i) => {
+          html += createRow(e, i + 1);
+        });
+        if (!r.data.length) html += '<td colspan="7" class="text-center">No record found!</td>';
+        html += tableEnd;
+        $('#Result').html(html);
+        $('#normalSearchModal').modal('hide');
+      }
+    });
+  }
+  
+  addPlay = (id) => {
+    $('#feedbackModal input[name=rating]').attr("data-id", id);
+    $('#feedbackModal').modal('show');
+  }
+  sendLike = (elem) => {
+    $('#feedbackModal').modal('hide');
+    console.log(elem.dataset.id);
+  }
+  sendDislike = (elem) => {
+    $('#feedbackModal').modal('hide');
+    console.log(elem.dataset.id);
+
+  }
+  $('input[name=rating]').click(function () {
+    console.log(this.value, this.dataset);
+    $.ajax({
+      url: '/addReview',
+      type: 'POST',
+      data: {
+        user_id: <%= user_id %>,
+        movie_id: this.dataset.id,
+        rating: this.value
+      },
+      success: (r) => {
+        console.log(r);
+        $('#feedbackModal').modal('hide');
+        // location.reload();
+      }
+    });
+  });
+
+  const tableStart = `<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">S No.</th>
+        <th scope="col">Movie</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Year</th>
+        <th scope="col">Description</th>
+        <th scope="col">Watch</th>
+
+      </tr>
+    </thead>
+    <tbody>`;
+  const createRow = (row, index) => {
+    return `<tr>
+        <th scope="row">${index}</th>
+        <td>${row.title}</td>
+        <td>${row.genre}</td>
+        <td>${row.duration.low || row.duration} Min</td>
+        <td>${row.year.low || row.year}</td>
+        <td>${row.description}</td>
+        <td><button class="btn btn-outline-primary" onclick=addPlay('${row.movie_id.low || row.movie_id}')>Play</button></td>
+    </tr>`
+  }
+
+  const tableEnd = `
+    </tbody>
+  </table>`;
+</script>

@@ -1,0 +1,402 @@
+<%- include('partials/header') %>
+
+
+<div class="container">
+    <div class="row">
+        <div class="col">
+            <button data-toggle="modal" data-target="#addMovieModal" class="btn btn-primary">Add a movie</a>
+        </div>
+
+        <div class="col">
+            <a href="/admin/logout" class="btn btn-danger">Logout</a>
+        </div>
+
+        <div class="col">
+        <div class="mr-auto">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#normalSearchModal">Search</button>
+
+          <!-- <input type="text" name="Search" id="">
+          <button class="btn-primary" onclick="search(this)">Search</button> -->
+        </div>
+      </div>
+        <div class="col text-right">
+        <!-- <button class="btn btn-primary" data-toggle="modal" data-target="#advanceSearchModal">Advance Search</button> -->
+
+        </div>
+
+    </div>
+    <div class="mt-5" id="Result"></div>
+</div>
+
+<div class="modal fade" id="addMovieModal" tabindex="-1" role="dialog" aria-labelledby="addMovieModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addMovieModalLabel">Add Movie</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" id="add-movie-form">
+            <div class="form-group">
+              <label for="Title">Title</label>
+              <input type="text" name="title" class="form-control" id="Title">
+            </div>
+            <div class="form-group">
+              <label for="Duration">Duration</label>
+              <input type="text" name="duration" class="form-control" id="Duration">
+            </div>
+            <div class="form-group">
+              <label for="Genre">Genre</label>
+              <input type="text" name="genre" class="form-control" id="Genre">
+            </div>
+            <div class="form-group">
+              <label for="Year">Year</label>
+              <input type="text" name="year" class="form-control" id="Year">
+            </div>
+            <div class="form-group">
+              <label for="language">Language</label>
+              <input type="text" name="language" class="form-control" id="language">
+            </div>
+            <div class="form-group">
+              <label for="country">Country</label>
+              <input type="text" name="country" class="form-control" id="country">
+            </div>
+            <div class="form-group">
+              <label for="production_company">Production company</label>
+              <input type="text" name="production_company" class="form-control" id="production_company">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea type="text" name="description" class="form-control" id="description"></textarea>
+            </div>
+            <div class="d-flex">
+              <button type="button" class="btn btn-primary mx-auto" onclick="addMovie(document.getElementById('add-movie-form'))">Add</button>
+            </div>
+          </form>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+
+  <div class="modal fade" id="editMovieModal" tabindex="-1" role="dialog" aria-labelledby="editMovieModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="editMovieModalLabel">Edit movie</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" id="edit-movie-form">
+            <div class="form-group">
+              <label for="Title">Title</label>
+              <input type="text" name="title" class="form-control" id="Title">
+            </div>
+            <div class="form-group">
+              <label for="Duration">Duration</label>
+              <input type="text" name="duration" class="form-control" id="Duration">
+            </div>
+            <div class="form-group">
+              <label for="Genre">Genre</label>
+              <input type="text" name="genre" class="form-control" id="Genre">
+            </div>
+            <div class="form-group">
+              <label for="Year">Year</label>
+              <input type="text" name="year" class="form-control" id="Year">
+            </div>
+            <div class="form-group">
+              <label for="language">Language</label>
+              <input type="text" name="language" class="form-control" id="language">
+            </div>
+            <div class="form-group">
+              <label for="country">Country</label>
+              <input type="text" name="country" class="form-control" id="country">
+            </div>
+            <div class="form-group">
+              <label for="production_company">Production company</label>
+              <input type="text" name="production_company" class="form-control" id="production_company">
+            </div>
+            <div class="form-group">
+              <label for="description">Description</label>
+              <textarea type="text" name="description" class="form-control" id="description"></textarea>
+            </div>
+            <input type="hidden" name="movie_id" id="movie_id">
+            <div class="d-flex">
+              <button type="button" class="btn btn-primary mx-auto" onclick="sendeditMovie(document.getElementById('edit-movie-form'))">Edit</button>
+            </div>
+          </form>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <!-- <div class="modal fade" id="advanceSearchModal" tabindex="-1" role="dialog" aria-labelledby="advanceSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="advanceSearchModalLabel">Advance Search</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" id="advance-search-form">
+            <div class="form-group">
+              <label for="Title">Title</label>
+              <input type="text" name="title" class="form-control" id="Title">
+            </div>
+            <div class="form-group">
+              <label for="Duration">Duration</label>
+              <input type="text" name="duration" class="form-control" id="Duration">
+            </div>
+            <div class="form-group">
+              <label for="Genre">Genre</label>
+              <input type="text" name="genre" class="form-control" id="Genre">
+            </div>
+            <div class="form-group">
+              <label for="Year">Year</label>
+              <input type="text" name="year" class="form-control" id="Year">
+            </div>
+            
+            <div class="d-flex">
+              <button type="button" class="btn btn-primary mx-auto" onclick="advanceSearch(document.getElementById('advance-search-form'))">Search</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div> -->
+
+  <div class="modal fade" id="normalSearchModal" tabindex="-1" role="dialog" aria-labelledby="normalSearchModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="normalSearchModalLabel">Search</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="" id="normal-search-form">
+          <div class="form-group">
+            <label for="Title">Title</label>
+            <input type="text" name="title" class="form-control" id="Title">
+          </div>
+          <div class="form-group">
+            <label for="Duration">Duration</label>
+            <input type="text" name="duration" class="form-control" id="Duration">
+          </div>
+          <div class="form-group">
+            <label for="Genre">Genre</label>
+            <input type="text" name="genre" class="form-control" id="Genre">
+          </div>
+          <div class="form-group">
+            <label for="Year">Year</label>
+            <input type="text" name="year" class="form-control" id="Year">
+          </div>
+         <!-- <div class="form-group">
+              <label for="language">Language</label>
+              <input type="text" name="language" class="form-control" id="language">
+            </div>
+            <div class="form-group">
+              <label for="country">Country</label>
+              <input type="text" name="country" class="form-control" id="country">
+            </div>
+            <div class="form-group">
+              <label for="production_company">Production company</label>
+              <input type="text" name="production_company" class="form-control" id="production_company">
+            </div> -->
+          <div class="d-flex">
+            <button type="button" class="btn btn-primary mx-auto"
+              onclick="normalSearch(document.getElementById('normal-search-form'))">Search</button>
+          </div>
+        </form>
+      </div>
+      <!-- <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Save changes</button>
+      </div> -->
+    </div>
+  </div>
+</div>
+  <script>
+    // let dummyData = [{id: 1,movie: 'abc',genre: 'b',duration: 'c',rating: 'd', description: 'e', year: 2010   }, {id: 2,movie: 'zyx',genre: 'b',duration: 'c',rating: 'd', description: 'e', year: 2010   }, {id: 3,movie: 'abcd',genre: 'b',duration: 'c',rating: 'd', description: 'e', year: 2010   }];
+  // search = (elem) => {
+  //   let searchValue = elem.previousElementSibling.value;
+  //   console.log(searchValue);
+  //   let output = data.filter(e => e.movie.includes(searchValue));
+  //   let html = tableStart;
+  //   output.forEach((e, i) => {
+  //       html += createRow(e,i+1);
+  //   }); 
+  //   if(!output.length) html += '<td colspan="8" class="text-center">No record found!!</td>'; 
+
+  //   html += tableEnd;
+  //   $('#Result').html(html);
+  // }
+  // advanceSearch = (form) => {
+  //   let searchedData = $(form).serializeArray();
+  //   console.log(searchedData);
+  //   let output = data.filter(e => e.movie.includes(searchedData[0].value) && e.duration.includes(searchedData[1].value) && e.genre.includes(searchedData[2].value) && e.year == searchedData[3].value );
+  //   let html = tableStart;
+  //   output.forEach((e, i) => {
+  //       html += createRow(e,i+1);
+  //   });
+  //   if(!output.length) html += '<td colspan="8" class="text-center">No record found!!</td>'; 
+  //   html += tableEnd;
+  //   $('#Result').html(html);
+  //   $('#advanceSearchModal').modal('hide');
+  // }
+  
+  advanceSearch = (form) => {
+    let searchedData = $(form).serializeArray();
+    console.log(searchedData);
+    $.ajax({
+      url: '/advance-search',
+      type: 'POST',
+      data: searchedData,
+      success: (r) => {
+        console.log(r);
+        let html = tableStart;
+        r.data.forEach((e, i) => {
+          html += createRow(e, i + 1);
+        });
+        if (!r.data.length) html += '<td colspan="9" class="text-center">No record found!!</td>';
+        html += tableEnd;
+        $('#Result').html(html);
+        $('#advanceSearchModal').modal('hide');
+      }
+    });
+    let output = data.filter(e => e.movie.includes(searchedData[0].value) && e.duration.includes(searchedData[1]
+      .value) && e.genre.includes(searchedData[2].value) && e.year == searchedData[3].value);
+
+  }
+  normalSearch = (form) => {
+    let searchedData = $(form).serializeArray();
+    $.ajax({
+      url: '/normal-search',
+      type: 'POST',
+      data: searchedData,
+      success: (r) => {
+        console.log(r);
+        let html = tableStart;
+        r.data.forEach((e, i) => {
+          html += createRow(e, i + 1);
+        });
+        if (!r.data.length) html += '<td colspan="9" class="text-center">No record found!!</td>';
+        html += tableEnd;
+        $('#Result').html(html);
+        $('#normalSearchModal').modal('hide');
+      }
+    });
+    // let output = data.filter(e => e.movie.includes(searchedData[0].value) && e.duration.includes(searchedData[1]
+      // .value) && e.genre.includes(searchedData[2].value) && e.year == searchedData[3].value);
+    // let html = tableStart;
+    // output.forEach((e, i) => {
+      // html += createRow(e, i + 1);
+    // });
+    // if (!output.length) html += '<td colspan="8" class="text-center">No record found!!</td>';
+    // html += tableEnd;
+    // $('#Result').html(html);
+    // $('#normalSearchModal').modal('hide');
+  }
+  
+  addMovie = (elem) => {
+          let movie_data = $(elem).serializeArray();
+          $.ajax({
+      url: '/admin/addMovie',
+      type: 'POST',
+      data: movie_data,
+      success: (r) => {
+        console.log(r);
+        location.reload();
+      }
+    });
+      };
+      editMovie = (data) => {
+        // let data = JSON.parse(dt);
+        $('#editMovieModal #Title').val(data.title);
+        $('#editMovieModal #Duration').val(data.duration.low || data.duration);
+        $('#editMovieModal #Genre').val(data.genre);
+        $('#editMovieModal #Year').val(data.year.low || data.year);
+        $('#editMovieModal #description').val(data.description);
+        $('#editMovieModal #movie_id').val(data.movie_id.low || data.movie_id);
+        $('#editMovieModal #language').val(data.language);
+        $('#editMovieModal #country').val(data.country);
+        $('#editMovieModal #production_company').val(data.production_company);
+
+
+        $('#editMovieModal').modal('show');
+      }
+      sendeditMovie = (elem) => {
+          let editdata = $(elem).serializeArray();
+          $.ajax({
+      url: '/admin/editMovie',
+      type: 'POST',
+      data: editdata,
+      success: (r) => {
+        console.log(r);
+        location.reload();
+      }
+    });
+      };
+      deleteMovie = (m_id) => {
+        console.log(m_id, 'delete');
+        $.ajax({
+      url: '/admin/deleteMovie',
+      type: 'POST',
+      data: {
+        movie_id: m_id
+      },
+      success: (r) => {
+        console.log(r);
+        location.reload();
+      }
+    });
+      }
+      const tableStart = `<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">S No.</th>
+        <th scope="col">Movie</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Duration</th>
+        <th scope="col">Year</th>
+        <th scope="col">Movie ID</th>
+        <th scope="col">Description</th>
+        <th scope="col">Edit movie</th>
+        <th scope="col">Delete movie</th>
+
+      </tr>
+    </thead>
+    <tbody>`;
+    const createRow = (row, index) => {
+      console.log(row);
+      return `<tr>
+        <th scope="row">${index}</th>
+        <td>${row.title}</td>
+        <td>${row.genre}</td>
+        <td>${row.duration.low || row.duration}</td>
+        <td>${row.year.low || row.year}</td>
+        <td>${row.movie_id.low || row.movie_id}</td>
+        <td>${row.description}</td>
+        <td><button class="btn btn-outline-primary" onclick='editMovie(${JSON.stringify(row)})'>Edit</button></td>
+        <td><button class="btn btn-outline-danger" onclick="deleteMovie(${row.movie_id.low})">Delete</button></td>
+    </tr>`
+    }
+      
+    const tableEnd = `
+    </tbody>
+  </table>`;
+  </script>

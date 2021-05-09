@@ -1,0 +1,146 @@
+<%- include('partials/header') %>
+
+
+<div class="container">
+    <div class="row">
+        
+        <div class="col">
+            <a href="/admin/logout" class="btn btn-danger">Logout</a>
+        </div>
+
+        <div class="col">
+        <div class="mr-auto">
+          <input type="text" name="seach" id="">
+          <button class="btn-primary" onclick="search(this)">Search</button>
+        </div>
+      </div>
+        <div class="col text-right">
+        <button class="btn btn-primary" data-toggle="modal" data-target="#advanceSearchModal">Advance Search</button>
+
+        </div>
+
+    </div>
+    <div class="mt-5" id="Result"></div>
+
+</div>
+
+
+  <div class="modal fade" id="advanceSearchModal" tabindex="-1" role="dialog" aria-labelledby="advanceSearchModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="advanceSearchModalLabel">Advance Search</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <form action="" id="advance-search-form">
+            <div class="form-group">
+              <label for="Name">Name</label>
+              <input type="text" name="name" class="form-control" id="Name">
+            </div>
+            <div class="form-group">
+              <label for="Director">Director</label>
+              <input type="text" name="director" class="form-control" id="Director">
+            </div>
+            <div class="form-group">
+              <label for="Genre">Genre</label>
+              <input type="text" name="genre" class="form-control" id="Genre">
+            </div>
+            <div class="form-group">
+              <label for="Year">Year</label>
+              <input type="text" name="year" class="form-control" id="Year">
+            </div>
+            <div class="d-flex">
+              <button type="button" class="btn btn-primary mx-auto" onclick="advanceSeach(document.getElementById('advance-search-form'))">Search</button>
+            </div>
+          </form>
+        </div>
+        <!-- <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div> -->
+      </div>
+    </div>
+  </div>
+  <script>
+    let dummyData = [{id: 1,movie: 'abc',genre: 'b',director: 'c',rating: 'd', desc: 'e', year: 2010   }, {id: 2,movie: 'zyx',genre: 'b',director: 'c',rating: 'd', desc: 'e', year: 2010   }, {id: 3,movie: 'abcd',genre: 'b',director: 'c',rating: 'd', desc: 'e', year: 2010   }];
+  search = (elem) => {
+    let searchValue = elem.previousElementSibling.value;
+    console.log(searchValue);
+    let output = dummyData.filter(e => e.movie.includes(searchValue));
+    let html = tableStart;
+    output.forEach((e, i) => {
+        html += createRow(e,i+1);
+    }); 
+    if(!output.length) html += '<td colspan="8" class="text-center">No record found!!</td>'; 
+
+    html += tableEnd;
+    $('#Result').html(html);
+  }
+  advanceSeach = (form) => {
+    let searchedData = $(form).serializeArray();
+    console.log(searchedData);
+    let output = dummyData.filter(e => e.movie.includes(searchedData[0].value) && e.director.includes(searchedData[1].value) && e.genre.includes(searchedData[2].value) && e.year == searchedData[3].value );
+    let html = tableStart;
+    output.forEach((e, i) => {
+        html += createRow(e,i+1);
+    });
+    if(!output.length) html += '<td colspan="8" class="text-center">No record found!!</td>'; 
+    html += tableEnd;
+    $('#Result').html(html);
+    $('#advanceSearchModal').modal('hide');
+  }
+      addMovie = (elem) => {
+          let data = $(elem).serializeArray();
+          console.log(data);
+      };
+      editMovie = (data) => {
+        // let data = JSON.parse(dt);
+        $('#editMovieModal #Name').val(data.movie);
+        $('#editMovieModal #Director').val(data.director);
+        $('#editMovieModal #Genre').val(data.genre);
+        $('#editMovieModal #Year').val(data.year);
+        $('#editMovieModal #desc').val(data.desc);
+
+        $('#editMovieModal').modal('show');
+      }
+      sendeditMovie = (elem) => {
+          let data = $(elem).serializeArray();
+          console.log(data);
+      };
+      const tableStart = `<table class="table table-striped">
+    <thead>
+      <tr>
+        <th scope="col">S No.</th>
+        <th scope="col">Movie</th>
+        <th scope="col">Genre</th>
+        <th scope="col">Director</th>
+        <th scope="col">Year</th>
+        <th scope="col">Rating</th>
+        <th scope="col">Description</th>
+        <th scope="col">Edit movie</th>
+        <th scope="col">Delete movie</th>
+
+      </tr>
+    </thead>
+    <tbody>`;
+    const createRow = (row, index) => {
+      return `<tr>
+        <th scope="row">${index}</th>
+        <td>${row.movie}</td>
+        <td>${row.genre}</td>
+        <td>${row.director}</td>
+        <td>${row.year}</td>
+        <td>${row.rating}</td>
+        <td>${row.desc}</td>
+        <td><button class="btn btn-outline-primary" onclick='editMovie(${JSON.stringify(row)})'>Edit</button></td>
+        <td><button class="btn btn-outline-danger" onclick="deleteMovie(${row.id}">Delete</button></td>
+    </tr>`
+    }
+      
+    const tableEnd = `
+    </tbody>
+  </table>`;
+  </script>
