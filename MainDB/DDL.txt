@@ -1,10 +1,10 @@
 LOAD CSV WITH HEADERS FROM 'file:///MainDB/movies.csv' AS row
 MERGE (movie:Movie {movie_id: toInteger(row.imdb_title_id)})
-  ON CREATE SET movie.title = row.title, movie.year=toInteger(row.year), movie.date_published=date(row.date_published), movie.genre=row.genre, movie.duration=toInteger(row.duration), movie.country=row.country, movie.language=row.language, movie.production_company=row.production_company, movie.description=row.description, movie.budget=toInteger(row.budget), movie.usa_gross_income=toInteger(row.usa_gross_income), movie.worlwide_gross_income=toInteger(row.worlwide_gross_income);
+  ON CREATE SET movie.title = toLower(row.title), movie.year=toInteger(row.year), movie.date_published=date(row.date_published), movie.genre=toLower(row.genre), movie.duration=toInteger(row.duration), movie.country=toLower(row.country), movie.language=toLower(row.language), movie.production_company=toLower(row.production_company), movie.description=toLower(row.description), movie.budget=toInteger(row.budget), movie.usa_gross_income=toInteger(row.usa_gross_income), movie.worlwide_gross_income=toInteger(row.worlwide_gross_income);
 
 LOAD CSV WITH HEADERS FROM 'file:///MainDB/names.csv' AS row
 MERGE (fp:Filmperson {f_id: toInteger(row.imdb_name_id)})
-  ON CREATE SET fp.name = row.name;
+  ON CREATE SET fp.name = toLower(row.name);
 
 LOAD CSV WITH HEADERS FROM 'file:///MainDB/ratings.csv' AS row
 MERGE (consumer:Consumer {user_id: toInteger(row.userId)});
@@ -13,7 +13,7 @@ LOAD CSV WITH HEADERS FROM 'file:///MainDB/title_principals.csv' AS row
 MATCH (fp:Filmperson {f_id: toInteger(row.imdb_name_id)})
 MATCH (movie:Movie {movie_id: toInteger(row.imdb_title_id)})
 MERGE (fp)-[op:PARTICIPATED_IN]->(movie)
-ON CREATE SET op.role = row.category;
+ON CREATE SET op.role = toLower(row.category);
 
 LOAD CSV WITH HEADERS FROM 'file:///MainDB/ratings.csv' AS row
 MATCH (consumer:Consumer {user_id: toInteger(row.userId)})

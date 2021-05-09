@@ -16,7 +16,7 @@ WITH sum( (r.r1.rating-c1_mean) * (r.r2.rating-c2_mean) ) AS nom,
 WITH c1, c2, nom/denom AS pearson
 ORDER BY pearson DESC LIMIT 10
 
-MATCH (c2)-[r:RATED]->(m:Movie {language:"German"}) WHERE NOT EXISTS( (c1)-[:RATED]->(m) )
+MATCH (c2)-[r:RATED]->(m:Movie ) WHERE NOT EXISTS( (c1)-[:RATED]->(m) )
 
-RETURN m.title, SUM( pearson * r.rating) AS score
-ORDER BY score DESC LIMIT 100;
+RETURN m, 
+ORDER BY SUM( pearson * r.rating) DESC LIMIT 100;
